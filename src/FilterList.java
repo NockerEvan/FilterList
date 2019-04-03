@@ -30,17 +30,16 @@ public class FilterList extends AbstractList<Integer>{
         for (int k : predicate) {
             if (k == filterList[index]) {
                 throw new Exception("This element is in the predicate. It cannot be deleted");
-            } else {
-                int[] newList = new int[filterList.length-1];
-                for (int i = 0; i < index; i++) {
-                    newList[i] = filterList[i];
-                }
-                for (int i = index+1; i < filterList.length; i++) {
-                    newList[i-1] = filterList[i];
-                }
-                filterList=newList;
             }
         }
+        int[] newList = new int[filterList.length-1];
+        for (int i = 0; i < index; i++) {
+            newList[i] = filterList[i];
+        }
+        for (int i = index+1; i < filterList.length; i++) {
+            newList[i-1] = filterList[i];
+        }
+        filterList=newList;
         return filterList;
     }
 
@@ -50,16 +49,6 @@ public class FilterList extends AbstractList<Integer>{
         }
         return false;
     }
-    /*
-    public boolean predicate() {
-        for (int j = 0; j < filterList.length; j++) {
-            for (int k: predicate) {
-                if (k==filterList[j]) return true;
-            }
-        }
-        return false;
-    }
-    */
 
     FilterList(int[] filterList, int[] predicate) {
         this.filterList=filterList;
