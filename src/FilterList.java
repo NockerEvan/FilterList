@@ -1,7 +1,5 @@
 import java.util.AbstractList;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class FilterList extends AbstractList<Integer>{
     private int[] filterList;
@@ -9,7 +7,7 @@ public class FilterList extends AbstractList<Integer>{
 
     @Override
     public Integer get(int index) {
-        return null;
+        return filterList[index];
     }
 
     @Override
@@ -22,24 +20,37 @@ public class FilterList extends AbstractList<Integer>{
         return super.iterator();
     }
 
-    public void add(int i) {
-
+    public void removeAll() {
+        for (int i = 0; i < filterList.length; i++) {
+            if (predicate(i)) removeElement(i);
+        }
     }
 
-    public int[] removeElement(int index) throws Exception {
+    public int[] add(int i) throws Exception {
         for (int k : predicate) {
-            if (k == filterList[index]) {
-                throw new Exception("This element is in the predicate. It cannot be deleted");
+            if (k == i) throw new Exception("This element is in the predicate. It cannot be added");
+        }
+        int[] newList = new int[filterList.length+1];
+        for (int j = 0; j < filterList.length; j++) {
+            newList[j] = filterList[j];
+        }
+        newList[filterList.length] = i;
+        return newList;
+    }
+
+    public int[] removeElement(int index) {
+        if (predicate(index)) {
+            System.out.println("This element is in the predicate. It cannot be deleted");
+        } else {
+            int[] newList = new int[filterList.length - 1];
+            for (int i = 0; i < index; i++) {
+                newList[i] = filterList[i];
             }
+            for (int i = index + 1; i < filterList.length; i++) {
+                newList[i - 1] = filterList[i];
+            }
+            return newList;
         }
-        int[] newList = new int[filterList.length-1];
-        for (int i = 0; i < index; i++) {
-            newList[i] = filterList[i];
-        }
-        for (int i = index+1; i < filterList.length; i++) {
-            newList[i-1] = filterList[i];
-        }
-        filterList=newList;
         return filterList;
     }
 
