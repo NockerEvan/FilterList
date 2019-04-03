@@ -5,6 +5,14 @@ public class FilterList extends AbstractList<Integer>{
     private int[] filterList;
     private int[] predicate;
 
+    public int[] getFilterList() {
+        return filterList;
+    }
+
+    public int[] getPredicate() {
+        return predicate;
+    }
+
     @Override
     public Integer get(int index) {
         return filterList[index];
@@ -21,24 +29,39 @@ public class FilterList extends AbstractList<Integer>{
     }
 
     public void removeAll() {
+        int countPredicates = 0;
+        int cursor = 0;
         for (int i = 0; i < filterList.length; i++) {
-            if (predicate(i)) removeElement(i);
+            if (predicate(i)) {
+                countPredicates++;
+            }
         }
+        int[] newList = new int[countPredicates];
+        for (int i = 0; i < filterList.length; i++) {
+            if (predicate(i)) {
+                newList[cursor] = filterList[i];
+                cursor++;
+            }
+        }
+        filterList = newList;
     }
 
-    public int[] add(int i) throws Exception {
+    public void add(int i) {
         for (int k : predicate) {
-            if (k == i) throw new Exception("This element is in the predicate. It cannot be added");
+            if (k == i) {
+                System.out.println("This element is in the predicate. It cannot be deleted");
+            } else {
+                int[] newList = new int[filterList.length+1];
+                for (int j = 0; j < filterList.length; j++) {
+                    newList[j] = filterList[j];
+                }
+                newList[filterList.length] = i;
+                filterList = newList;
+            }
         }
-        int[] newList = new int[filterList.length+1];
-        for (int j = 0; j < filterList.length; j++) {
-            newList[j] = filterList[j];
-        }
-        newList[filterList.length] = i;
-        return newList;
     }
 
-    public int[] removeElement(int index) {
+    public void removeElement(int index) {
         if (predicate(index)) {
             System.out.println("This element is in the predicate. It cannot be deleted");
         } else {
@@ -49,12 +72,11 @@ public class FilterList extends AbstractList<Integer>{
             for (int i = index + 1; i < filterList.length; i++) {
                 newList[i - 1] = filterList[i];
             }
-            return newList;
+            filterList = newList;
         }
-        return filterList;
     }
 
-    public boolean predicate(int index) {
+    private boolean predicate(int index) {
         for (int k : predicate) {
             if (k == filterList[index]) return true;
         }
