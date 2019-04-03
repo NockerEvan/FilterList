@@ -1,8 +1,10 @@
 import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class FilterList extends AbstractList<Integer> {
+public class FilterList extends AbstractList<Integer>{
+
     @Override
     public Integer get(int index) {
         return null;
@@ -14,19 +16,15 @@ public class FilterList extends AbstractList<Integer> {
     }
 
     @Override
-    public Iterator<Integer> iterator() {
+    public Iterator iterator() {
         return super.iterator();
-    }
-
-    public boolean remove() {
-        return false;
     }
 
     public void add() {
 
     }
 
-    FilterList(List<Integer> list, List<Integer> predicate) {
+    public void remove() {
 
     }
 }
