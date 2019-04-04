@@ -1,7 +1,7 @@
-public class ListMaker {
+public class ListGenerator {
     private int[] list;
 
-    public int[] createList(int listSize) {
+    public int[] generateList(int listSize) {
         this.list = new int[listSize];
         for (int i = 0; i < listSize; i++) {
             list[i] = (int)(Math.random()*listSize);
@@ -10,7 +10,7 @@ public class ListMaker {
         return list;
     }
 
-    public int[] createPredicate(int listSize) {
+    public int[] generatePredicate(int listSize) {
         this.list = new int[listSize];
         for (int i = 0; i < listSize; i++) {
             list[i] = ((int)(Math.random()*10));
