@@ -4,8 +4,7 @@ public class ListGenerator {
     public int[] generateList(int listSize) {
         this.list = new int[listSize];
         for (int i = 0; i < listSize; i++) {
-            list[i] = (int)(Math.random()*listSize);
-            //list[i] = 0;
+            list[i] = (int)(Math.random()*listSize*2 - listSize);
         }
         return list;
     }
@@ -13,8 +12,7 @@ public class ListGenerator {
     public int[] generatePredicate(int listSize) {
         this.list = new int[listSize];
         for (int i = 0; i < listSize; i++) {
-            list[i] = ((int)(Math.random()*10));
-            //list[i] = 0;
+            list[i] = ((int)(Math.random()*25 - 13));
         }
         return list;
     }
