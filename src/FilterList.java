@@ -18,22 +18,22 @@ public class FilterList extends AbstractList<Integer>{
     }
 
     /**
-     * Метод проверяет отсутствие в предикате некоторого значения.     *
+     * Метод проверяет наличие в предикате некоторого значения.
      * @param value - значение типа int, отсутствие которого проверяется в предикате
-     * @return - true, если значение в предикате отсутствует.
+     * @return - true, если значение в предикате есть
      */
-    private boolean isNotInPredicateByValue(int value) {
+    private boolean isInPredicateByValue(int value) {
         for (int k : predicate) {
-            if (k == value) return false;
+            if (k == value) return true;
         }
-        return true;
+        return false;
     }
 
     /**
      * Метод считает сколько элементов из list присутствуют в предикате
      * @return - число элементов list, имеющихся в предикате
      */
-    private int predicatesQuantity() {
+    private int predicatesInListQuantity() {
         int countPredicates = 0;
         for (int i = 0; i < list.length; i++) {
             if (isInPredicateByIndex(i)) {
@@ -60,13 +60,13 @@ public class FilterList extends AbstractList<Integer>{
      * @return - массив int[], содержащий элементы из предиката
      */
     public int[] iterate(FilterList fL) {
-        int newListSize = list.length - predicatesQuantity();
+        int newListSize = list.length - predicatesInListQuantity();
         int[] newList = new int[newListSize];
         int cursor = 0;
         Iterator<Integer> iterator = fL.iterator();
         while (iterator.hasNext()) {
             int value = iterator.next();
-            if (isNotInPredicateByValue(value)) {
+            if (!isInPredicateByValue(value)) {
                 newList[cursor] = value;
                 cursor++;
             }
@@ -77,9 +77,9 @@ public class FilterList extends AbstractList<Integer>{
     /**
      * Метод, удаляющий из list все элементы, которых нет в предикате
      */
-    public void removeAll() {
+    public void removeAllNotInPredicate() {
         int cursor = 0;
-        int countPredicates = predicatesQuantity();
+        int countPredicates = predicatesInListQuantity();
         int[] newList = new int[countPredicates];
         for (int i = 0; i < list.length; i++) {
             if (isInPredicateByIndex(i)) {
@@ -94,10 +94,10 @@ public class FilterList extends AbstractList<Integer>{
      * Метод, добавляющий в list int, которого нет в предикате. Если int есть в предикате, то выдается предупреждение
      * @param i - int, добавляемый в массив
      */
-    public void add(int i) {
+    public void addIfNotInPredicate(int i) {
         int newListSize = list.length+1;
         int[] newList = new int[newListSize];
-        if (isNotInPredicateByValue(i)) {
+        if (!isInPredicateByValue(i)) {
             for (int j = 0; j < list.length; j++) {
                 newList[j] = list[j];
             }
@@ -113,7 +113,7 @@ public class FilterList extends AbstractList<Integer>{
      * Если int есть в предикате, то выдается предупреждение
      * @param index - индекс элемента, который нужно удалить
      */
-    public void removeElement(int index) {
+    public void removeIfNotInPredicate(int index) {
         if (isInPredicateByIndex(index)) {
             System.out.println("This element is in the predicate. It cannot be deleted");
         } else {
@@ -126,6 +126,13 @@ public class FilterList extends AbstractList<Integer>{
             }
             list = newList;
         }
+    }
+
+    public static void print(int[] listToPrint) {
+        for (int i: listToPrint) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
     }
 
     public int[] getFilterList() {
