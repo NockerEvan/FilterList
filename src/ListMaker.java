@@ -23,5 +23,6 @@ public class ListMaker {
         for (int i: listToPrint) {
             System.out.print(i + " ");
         }
+        System.out.println();
     }
 }

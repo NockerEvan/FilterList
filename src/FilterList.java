@@ -5,12 +5,28 @@ public class FilterList extends AbstractList<Integer>{
     private int[] filterList;
     private int[] predicate;
 
-    public int[] getFilterList() {
-        return filterList;
+    private boolean isInPredicateByIndex(int index) {
+        for (int k : predicate) {
+            if (k == filterList[index]) return true;
+        }
+        return false;
     }
 
-    public int[] getPredicate() {
-        return predicate;
+    private boolean isInPredicateByValue(int value) {
+        for (int k : predicate) {
+            if (k == value) return true;
+        }
+        return false;
+    }
+
+    private int predicatesQuantity() {
+        int countPredicates = 0;
+        for (int i = 0; i < filterList.length; i++) {
+            if (isInPredicateByIndex(i)) {
+                countPredicates++;
+            }
+        }
+        return countPredicates;
     }
 
     @Override
@@ -23,9 +39,19 @@ public class FilterList extends AbstractList<Integer>{
         return filterList.length;
     }
 
-    @Override
-    public Iterator iterator() {
-        return super.iterator();
+    public int[] iterate(FilterList fL) {
+        int newListSize = filterList.length - predicatesQuantity();
+        int[] newList = new int[newListSize];
+        int cursor = 0;
+        Iterator<Integer> iterator = fL.iterator();
+        while (iterator.hasNext()) {
+            int value = iterator.next();
+            if (!isInPredicateByValue(value)) {
+                newList[cursor] = value;
+                cursor++;
+            }
+        }
+        return newList;
     }
 
     public void removeAll() {
@@ -70,28 +96,12 @@ public class FilterList extends AbstractList<Integer>{
         }
     }
 
-    private boolean isInPredicateByIndex(int index) {
-        for (int k : predicate) {
-            if (k == filterList[index]) return true;
-        }
-        return false;
+    public int[] getFilterList() {
+        return filterList;
     }
 
-    private boolean isInPredicateByValue(int value) {
-        for (int k : predicate) {
-            if (k == value) return true;
-        }
-        return false;
-    }
-
-    private int predicatesQuantity() {
-        int countPredicates = 0;
-        for (int i = 0; i < filterList.length; i++) {
-            if (isInPredicateByIndex(i)) {
-                countPredicates++;
-            }
-        }
-        return countPredicates;
+    public int[] getPredicate() {
+        return predicate;
     }
 
     FilterList(int[] filterList, int[] predicate) {
