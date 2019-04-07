@@ -15,16 +15,16 @@ public class FilterListRunner {
         FilterList filterList06 = new FilterList(list01, null);
 
         System.out.println("First FilterList manipulations");
-        FilterList.print(filterList01.getFilterList());
+        FilterList.print(filterList01.getList());
         FilterList.print(filterList01.getPredicate());
         System.out.println("Remove element №3 (which is in the predicate and cannot be removed)");
         filterList01.removeIfNotInPredicate(3);
         System.out.println("Remove element №0 = -2 (the beginning of list)");
         filterList01.removeIfNotInPredicate(0);
-        FilterList.print(filterList01.getFilterList());
+        FilterList.print(filterList01.getList());
         System.out.println("Remove element №6 = -12 (the end of list)");
         filterList01.removeIfNotInPredicate(6);
-        FilterList.print(filterList01.getFilterList());
+        FilterList.print(filterList01.getList());
         try{
             filterList01.removeIfNotInPredicate(6);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -34,28 +34,28 @@ public class FilterListRunner {
         filterList01.addIfNotInPredicate(-30);
         System.out.println("Add 0");
         filterList01.addIfNotInPredicate(0);
-        FilterList.print(filterList01.getFilterList());
+        FilterList.print(filterList01.getList());
         System.out.println("Iterator result");
         FilterList.print(filterList01.iterate(filterList01));
         System.out.println("RemoveAll result - sees repeated numbers in the list");
         filterList01.removeAllNotInPredicate();
-        FilterList.print(filterList01.getFilterList());
+        FilterList.print(filterList01.getList());
 
         System.out.println();
 
         System.out.println("Second FilterList manipulations - a case when predicate is bigger than list");
-        FilterList.print(filterList02.getFilterList());
+        FilterList.print(filterList02.getList());
         FilterList.print(filterList02.getPredicate());
         System.out.println("Iterator result");
         FilterList.print(filterList02.iterate(filterList02));
         System.out.println("RemoveAll result");
         filterList02.removeAllNotInPredicate();
-        FilterList.print(filterList02.getFilterList());
+        FilterList.print(filterList02.getList());
 
         System.out.println();
 
         System.out.println("Third FilterList manipulations - a case where list.size = 0");
-        FilterList.print(filterList03.getFilterList());
+        FilterList.print(filterList03.getList());
         FilterList.print(filterList03.getPredicate());
         try{
             filterList03.removeIfNotInPredicate(0);
@@ -66,50 +66,50 @@ public class FilterListRunner {
         FilterList.print(filterList03.iterate(filterList03));
         System.out.println("RemoveAll result");
         filterList03.removeAllNotInPredicate();
-        FilterList.print(filterList03.getFilterList());
+        FilterList.print(filterList03.getList());
 
         System.out.println();
 
         System.out.println("Fourth FilterList manipulations - where both list and predicate size = 0");
-        FilterList.print(filterList04.getFilterList());
+        FilterList.print(filterList04.getList());
         FilterList.print(filterList04.getPredicate());
         try{
             filterList04.removeIfNotInPredicate(0);
         } catch (NegativeArraySizeException e) {
             System.out.println("Removal of any element from list with size = 0 will generate NegativeSizeArrayException");
         }
-        FilterList.print(filterList04.getFilterList());
+        FilterList.print(filterList04.getList());
         System.out.println("Add 0 - no problems with adding anything");
         filterList04.addIfNotInPredicate(6);
-        FilterList.print(filterList04.getFilterList());
+        FilterList.print(filterList04.getList());
         System.out.println("Now we can safely remove element №0");
         filterList04.removeIfNotInPredicate(0);
-        FilterList.print(filterList04.getFilterList());
+        FilterList.print(filterList04.getList());
         System.out.println("Iterator result");
         FilterList.print(filterList04.iterate(filterList04));
         System.out.println("RemoveAll result");
         filterList04.removeAllNotInPredicate();
-        FilterList.print(filterList04.getFilterList());
+        FilterList.print(filterList04.getList());
 
         System.out.println("Fifth FilterList manipulations a case where there are repeated numbers in predicate");
-        FilterList.print(filterList05.getFilterList());
+        FilterList.print(filterList05.getList());
         FilterList.print(filterList05.getPredicate());
         System.out.println("Trying to remove element №4 (which is repeated in predicate)");
         filterList05.removeIfNotInPredicate(4);
-        FilterList.print(filterList05.getFilterList());
+        FilterList.print(filterList05.getList());
         System.out.println("Add 16 - which is repeated in predicate");
         filterList05.addIfNotInPredicate(16);
-        FilterList.print(filterList05.getFilterList());
+        FilterList.print(filterList05.getList());
         System.out.println("Iterator result");
         FilterList.print(filterList05.iterate(filterList05));
         System.out.println("RemoveAll result");
         filterList05.removeAllNotInPredicate();
-        FilterList.print(filterList05.getFilterList());
+        FilterList.print(filterList05.getList());
 
         System.out.println();
 
         System.out.println("Sixth FilterList manipulations - a case where predicate is null");
-        FilterList.print(filterList06.getFilterList());
+        FilterList.print(filterList06.getList());
         try {
             FilterList.print(filterList06.getPredicate());
         } catch (NullPointerException e) {

@@ -135,7 +135,7 @@ public class FilterList extends AbstractList<Integer>{
         System.out.println();
     }
 
-    public int[] getFilterList() {
+    public int[] getList() {
         return list;
     }
 
@@ -144,12 +144,16 @@ public class FilterList extends AbstractList<Integer>{
     }
 
     FilterList(int[] list, int[] predicate) {
-        this.list=list;
-        this.predicate=predicate;
         if (list == null) {
             this.list = new int[] {};
-        } else if (predicate == null) {
-            this.predicate = new int[] {};
+        } else {
+            this.list = list;
+        }
+
+        if (predicate == null) {
+                this.predicate = new int[] {};
+            } else {
+            this.predicate=predicate;
         }
     }
 }
