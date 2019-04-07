@@ -1,3 +1,5 @@
+import org.hamcrest.core.Is;
+import org.hamcrest.core.IsEqual;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -62,13 +64,60 @@ public class FilterListTest {
 
     @Test
     public void addIfNotInPredicate() {
-        String message = "This element is in the predicate. It cannot be added";
+        int[] additionExpResult01 = {-2, 0, 5, 5, 16, -30, 2, -12};
+        repeatedListElmtInPredicate.addIfNotInPredicate(16);
+        assertArrayEquals(additionExpResult01, repeatedListElmtInPredicate.getList());
 
+        int[] additionExpResult02 = {-2, 0, 5, 5, 16, -30, 2, -12, 5};
+        repeatedListElmtInPredicate.addIfNotInPredicate(5);
+        assertArrayEquals(additionExpResult02, repeatedListElmtInPredicate.getList());
+
+        int[] additionExpResult03 = {-2, 0, 5, 5, 16, -30, 2, -12};
+        repeatedPredicateElmtInList.addIfNotInPredicate(5);
+        assertArrayEquals(additionExpResult03, repeatedPredicateElmtInList.getList());
+
+        int[] additionExpResult04 = {-2, 0, 5, 5, 16, -30, 2, -12, -30};
+        repeatedPredicateElmtInList.addIfNotInPredicate(-30);
+        assertArrayEquals(additionExpResult04, repeatedPredicateElmtInList.getList());
+
+        int[] additionExpResult05 = {4};
+        listIsEmpty.addIfNotInPredicate(4);
+        assertArrayEquals(additionExpResult05, listIsEmpty.getList());
+
+        int[] additionExpResult06 = {3, 6, 6};
+        predicateEmpty.addIfNotInPredicate(6);
+        assertArrayEquals(additionExpResult06, predicateEmpty.getList());
+
+        int[] additionExpResult07 = {555};
+        listIsNull.addIfNotInPredicate(555);
+        assertArrayEquals(additionExpResult07, listIsNull.getList());
+
+        int[] iterateExpResult07 = {-2, 0, 5, 5, 16, -30, 2, -12, 5};
+        predicateIsNull.addIfNotInPredicate(5);
+        assertArrayEquals(iterateExpResult07, predicateIsNull.getList());
     }
 
     @Test
-    public void removeIfNotInPredicate() {
-        String message = "This element is in the predicate. It cannot be deleted";
+    public void removeIfNotInPredicate() throws ArrayIndexOutOfBoundsException, NegativeArraySizeException {
+        int[] removeExpResult01 = {-2, 0, 5, 5, 16, -30, 2, -12};
+        repeatedListElmtInPredicate.removeIfNotInPredicate(4);
+        assertArrayEquals(removeExpResult01, repeatedListElmtInPredicate.getList());
+
+        int[] removeExpResult02 = {0, 5, 5, 16, -30, 2, -12};
+        repeatedListElmtInPredicate.removeIfNotInPredicate(0);
+        assertArrayEquals(removeExpResult02, repeatedListElmtInPredicate.getList());
+
+        int[] removeExpResult03 = {-2, 0, 5, 5, 16, -30, 2, -12};
+        try {
+            repeatedPredicateElmtInList.removeIfNotInPredicate(12);
+            fail("Expected an ArrayIndexOutOfBoundsException to be thrown");
+        } catch (ArrayIndexOutOfBoundsException arrIO) {
+            assertArrayEquals(removeExpResult03, repeatedPredicateElmtInList.getList());
+        }
+
+//        int[] additionExpResult04 = {-2, 0, 5, 5, 16, -30, 2, -12, -30};
+//        repeatedPredicateElmtInList.addIfNotInPredicate(-30);
+//        assertArrayEquals(additionExpResult04, repeatedPredicateElmtInList.getList());
 
     }
 
