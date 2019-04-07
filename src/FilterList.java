@@ -146,5 +146,10 @@ public class FilterList extends AbstractList<Integer>{
     FilterList(int[] list, int[] predicate) {
         this.list=list;
         this.predicate=predicate;
+        if (list == null) {
+            this.list = new int[] {};
+        } else if (predicate == null) {
+            this.predicate = new int[] {};
+        }
     }
 }
