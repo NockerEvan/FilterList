@@ -1,5 +1,3 @@
-import org.hamcrest.core.Is;
-import org.hamcrest.core.IsEqual;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,6 +17,7 @@ public class FilterListTest {
     private FilterList predicateEmpty;
     private FilterList listIsNull;
     private FilterList predicateIsNull;
+    private FilterList listAndPredicateNull;
 
     @Before
     public void setUp() throws Exception {
@@ -29,6 +28,7 @@ public class FilterListTest {
         predicateEmpty = new FilterList(list02, emptyPredicate);
         listIsNull = new FilterList(null, predicate01);
         predicateIsNull = new FilterList(list01, null);
+        listAndPredicateNull = new FilterList(null, null);
     }
 
     @Test
@@ -115,10 +115,21 @@ public class FilterListTest {
             assertArrayEquals(removeExpResult03, repeatedPredicateElmtInList.getList());
         }
 
-//        int[] additionExpResult04 = {-2, 0, 5, 5, 16, -30, 2, -12, -30};
-//        repeatedPredicateElmtInList.addIfNotInPredicate(-30);
-//        assertArrayEquals(additionExpResult04, repeatedPredicateElmtInList.getList());
+        try {
+            listIsEmpty.removeIfNotInPredicate(0);
+            fail("Expected an ArrayIndexOutOfBoundsException to be thrown");
+        } catch (ArrayIndexOutOfBoundsException arrIO) {
+        }
 
+        int[] removeExpResult05 = {3};
+        predicateEmpty.removeIfNotInPredicate(1);
+        assertArrayEquals(removeExpResult05, predicateEmpty.getList());
+
+        try {
+            listAndPredicateNull.removeIfNotInPredicate(0);
+            fail("Expected a NegativeArraySizeException to be thrown");
+        } catch (NegativeArraySizeException negArr) {
+        }
     }
 
     @Test
